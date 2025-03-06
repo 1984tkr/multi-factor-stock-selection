@@ -32,6 +32,8 @@ P.S.此为初代模型,有待更新.
 |------------------------|----------------|
 | data/                   | Market & financial data (Tushare/CSV) |
 | output/                 | Backtest results (net value, positions, IC stats) |
+|factor_graveyard/
+| |-
 | factors/                 | Factors calculation & scoring |
 | ├─ financial_factors.py | Financial factors calculation (PE, ROE, etc.) |
 | ├─ technical_factors.py | Technical factors calculation (momentum, volatility, etc.) |
