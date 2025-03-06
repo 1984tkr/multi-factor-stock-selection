@@ -1,4 +1,4 @@
-# 多因子选股策略框架
+# Multi-Factor-Stock-Selection
 P.S.此为初代模型,有待更新.
 
 ## 项目简介
