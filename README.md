@@ -1,9 +1,9 @@
 # Multi-Factor Stock Selection - Quantitative Trading System
 
-## 📌 Project Overview
+## Project Overview
 This project implements a **multi-factor stock selection and backtesting system**, integrating **multi-factor models, market timing strategies, and backtest analysis** to optimize investment decisions. Using **Python and Tushare API**, the system retrieves financial market data, evaluates stock investment value through factor analysis, and integrates timing signals to optimize trading decisions. The system allows users to test different factor combinations and assess their effectiveness in historical market conditions.
 
-## 📂 Project Structure
+## Project Structure
 ```
 multi-factor-stock-selection/
 ├── data/                          # Raw market data (retrieved via Tushare API)
@@ -20,7 +20,7 @@ multi-factor-stock-selection/
 ├── Dockerfile                     # Docker containerization support (optional)
 ```
 
-## 🔹 Core Features & Workflow
+## Core Features & Workflow
 ### 1️⃣ Data Acquisition
 - Uses **Tushare API** to fetch **daily market prices, financial data, suspension records, dividend adjustments**.
 - Cleans and preprocesses data (outlier removal, standardization, missing data handling).
@@ -62,21 +62,21 @@ multi-factor-stock-selection/
 - **Annual Return Distribution**.
 - **Cumulative Excess Returns**.
 
-## 📌 Installation & Usage
-### 🔧 Prerequisites
+## Installation & Usage
+### Prerequisites
 Ensure you have **Python 3.8+** installed and install required dependencies:
 ```sh
 pip install -r requirements.txt
 ```
 
-### 🚀 Running the System
+### Running the System
 To execute the full pipeline:
 ```sh
 python main.py
 ```
 This script will **fetch data, compute factors, select stocks, generate timing signals, run backtests, and visualize performance**.
 
-## 📌 Output Files
+## Output Files
 ```
 output/
 ├── portfolio_value.csv        # Daily portfolio value
@@ -89,7 +89,7 @@ output/
 ├── excess_returns.png         # Cumulative excess return curve
 ```
 
-## 📌 Technologies Used
+## Technologies Used
 - **Python**: Core development language
 - **Pandas, NumPy**: Data processing & analysis
 - **Matplotlib, Seaborn**: Data visualization
@@ -97,14 +97,14 @@ output/
 - **Scikit-learn**: Factor normalization, scoring
 - **Git & GitHub**: Version control & collaboration
 
-## 📌 Future Enhancements
-- ✅ **Real-time market data tracking** for live trading signals.
-- ✅ **Automated backtest scheduling** (daily updates, performance reports).
-- ✅ **Dynamic factor weighting** based on IC performance.
-- ✅ **Integration with trading platforms** (e.g., Alpaca, Interactive Brokers).
+## Future Enhancements
+- **Real-time market data tracking** for live trading signals.
+- **Automated backtest scheduling** (daily updates, performance reports).
+- **Dynamic factor weighting** based on IC performance.
+- **Integration with trading platforms** (e.g., Alpaca, Interactive Brokers).
 
-## 📌 Contact & Contribution
+## Contact & Contribution
 Contributions are welcome! If you'd like to improve the system, feel free to open an **Issue** or submit a **Pull Request** on GitHub.
 
-📌 **GitHub Repository**: [https://github.com/1984tkr/multi-factor-stock-selection]
+**GitHub Repository**: [https://github.com/1984tkr/multi-factor-stock-selection]
 
