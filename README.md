@@ -1,68 +1,110 @@
-# Multi-Factor-Stock-Selection
-P.S.此为初代模型,有待更新.
+# Multi-Factor Stock Selection - Quantitative Trading System
 
-## 项目简介
-本项目是一个完整的**多因子选股策略开发与回测框架**，兼顾**A股/港股/美股**市场，涵盖因子计算、因子筛选、评分模型、择时信号、回测分析、绩效评估等全流程。
-适合：
-- 量化投资研究员/策略开发岗自用
-- 量化策略团队策略开发模板
-- 多因子策略研究与实盘策略开发
+## 📌 Project Overview
+This project implements a **multi-factor stock selection and backtesting system**, integrating **multi-factor models, market timing strategies, and backtest analysis** to optimize investment decisions. Using **Python and Tushare API**, the system retrieves financial market data, evaluates stock investment value through factor analysis, and integrates timing signals to optimize trading decisions. The system allows users to test different factor combinations and assess their effectiveness in historical market conditions.
 
----
+## 📂 Project Structure
+```
+multi-factor-stock-selection/
+├── data/                          # Raw market data (retrieved via Tushare API)
+├── output/                        # Backtest results & analysis reports
+├── factors/                       # Factor computation & evaluation
+├── factor_graveyard/              # Deprecated factors & logs
+├── strategy/                      # Stock selection, market timing, backtesting
+├── utils/                         # Helper functions
+├── visualization/                 # Performance visualization
+├── config.py                      # Strategy parameter settings
+├── main.py                        # Main execution script
+├── README.md                      # Project documentation
+├── requirements.txt               # Python dependencies
+├── Dockerfile                     # Docker containerization support (optional)
+```
 
-## 功能概览
-| 功能模块 | 主要功能 |
-|---|---|
-| 数据获取 | Tushare数据接口或本地CSV导入 |
-| 因子计算 | 财务因子+技术因子（可配置N周期） |
-| 因子筛选 | IC分析+连续3月ICIR低于0.3退场 |
-| 因子评分 | LightGBM评分模型（超参调优+早停+特征重要性） |
-| 择时信号 | MA+市场宽度+动量加权择时信号 |
-| 回测框架 | 支持择时+评分加权+停牌处理+分红除权 |
-| 绩效评估 | 收益率统计+因子IC分析+换手率统计 |
-| 可视化 | 净值曲线+IC走势+择时信号可视化 |
-| 一键运行 | `main.py`一键完成全流程 |
+## 🔹 Core Features & Workflow
+### 1️⃣ Data Acquisition
+- Uses **Tushare API** to fetch **daily market prices, financial data, suspension records, dividend adjustments**.
+- Cleans and preprocesses data (outlier removal, standardization, missing data handling).
+- Computes **future N-day returns** for factor evaluation.
 
----
+### 2️⃣ Factor Computation
+- **Fundamental Factors**: PE, PB, ROE, debt ratio, revenue growth.
+- **Technical Factors**: Momentum (5-day, 10-day returns), moving averages (MA5, MA20, MA60), volume trends.
+- **Sentiment Factors**: News sentiment analysis, capital inflow tracking.
 
-## 项目结构  
+### 3️⃣ Factor Evaluation & Selection
+- Computes **Factor IC (Information Coefficient)** to assess predictive power.
+- Calculates **ICIR (IC Stability)** for factor robustness analysis.
+- Implements **Factor Removal Mechanism** (ICIR < 0.3 for 3 consecutive months).
 
+### 4️⃣ Stock Selection & Portfolio Construction
+- **Factor-weighted scoring method** assigns stock rankings.
+- Selects **Top N stocks** for final portfolio.
+- **Dynamic rebalancing** based on factor performance.
 
-| Folder/File                | Description |
-|------------------------|----------------|
-| data/                   | Market & financial data (Tushare/CSV) |
-| output/                 | Backtest results (net value, positions, IC stats) |
-|factor_graveyard/
-| |-
-| factors/                 | Factors calculation & scoring |
-| ├─ financial_factors.py | Financial factors calculation (PE, ROE, etc.) |
-| ├─ technical_factors.py | Technical factors calculation (momentum, volatility, etc.) |
-| ├─ factor_analysis.py   | Factor IC analysis, filtering, and retirement mechanism |
-| ├─ factor_scoring.py    | Multi-factor scoring model (LGBM + hyperparameter tuning + early stopping) |
-| ├─ timing_signal.py     | Market timing signals (MA, breadth, momentum combined weighting) |
-| strategy/                | Backtest framework |
-| ├─ backtest.py          | Backtest logic (position sizing, rebalancing, suspension handling, dividend adjustment) |
-| utils/                    | Utility functions |
-| ├─ data_loader.py       | Data loading (Tushare or CSV files) |
-| ├─ performance.py       | Performance analysis (return stats, IC tracking, turnover rate) |
-| visualization/            | Visualization of results |
-| ├─ plot_results.py      | Net value curve, IC trend, timing signal chart |
-| config.py                  | Configuration file (Tushare token, factor periods) |
-| main.py                    | Main script (end-to-end process control) |
-| README.md                  | Project documentation (current file) |
-| log.md                     | Version update history |
-| requirements.txt           | Python dependency list |
-| Dockerfile                  | Docker container support (optional) |
+### 5️⃣ Market Timing
+- **Moving average signals** (e.g., MA20 vs MA60 for trend confirmation).
+- **Market breadth indicators** (advancing stock percentage threshold).
+- **Volume trend signals** (increased/decreased trading volume).
 
----
+### 6️⃣ Backtesting Framework
+- Combines **stock selection & timing signals** for backtesting.
+- Handles **suspension adjustments, dividend reinvestments**.
+- Computes **daily portfolio value** and generates performance reports.
 
-## 策略流程
-1. 加载数据（Tushare或本地）
-2. 计算因子（财务+技术）
-3. 因子IC分析、筛选、退场（ICIR低于0.3淘汰）
-4. 训练评分模型（LGBM+超参调优+早停+特征重要性分析）
-5. 计算最新因子评分（预测未来收益率）
-6. 计算择时信号（均线+市场宽度+动量加权）
-7. 回测策略表现（择时+评分加权+停牌+分红除权）
-8. 绩效分析（收益率、IC表现、换手率）
-9. 可视化（净值+IC+择时信号）
+### 7️⃣ Performance Evaluation
+- Calculates key performance metrics:
+  - **Annual Return, Max Drawdown, Sharpe Ratio, Calmar Ratio, Sortino Ratio**.
+  - **Information Ratio (vs Benchmark), Profit-Loss Ratio, Win Rate, Turnover Rate**.
+
+### 8️⃣ Data Visualization
+- **Portfolio Performance vs Benchmark Index**.
+- **Factor IC Time-Series Analysis**.
+- **Annual Return Distribution**.
+- **Cumulative Excess Returns**.
+
+## 📌 Installation & Usage
+### 🔧 Prerequisites
+Ensure you have **Python 3.8+** installed and install required dependencies:
+```sh
+pip install -r requirements.txt
+```
+
+### 🚀 Running the System
+To execute the full pipeline:
+```sh
+python main.py
+```
+This script will **fetch data, compute factors, select stocks, generate timing signals, run backtests, and visualize performance**.
+
+## 📌 Output Files
+```
+output/
+├── portfolio_value.csv        # Daily portfolio value
+├── positions.csv              # Daily stock positions
+├── return_statistics.csv      # Performance metrics
+├── ic_summary.csv             # Factor IC statistics
+├── timing_signals.csv         # Market timing signals
+├── portfolio_performance.png  # Portfolio performance vs Index
+├── annual_returns.png         # Annual return bar chart
+├── excess_returns.png         # Cumulative excess return curve
+```
+
+## 📌 Technologies Used
+- **Python**: Core development language
+- **Pandas, NumPy**: Data processing & analysis
+- **Matplotlib, Seaborn**: Data visualization
+- **Tushare API**: Market data acquisition
+- **Scikit-learn**: Factor normalization, scoring
+- **Git & GitHub**: Version control & collaboration
+
+## 📌 Future Enhancements
+- ✅ **Real-time market data tracking** for live trading signals.
+- ✅ **Automated backtest scheduling** (daily updates, performance reports).
+- ✅ **Dynamic factor weighting** based on IC performance.
+- ✅ **Integration with trading platforms** (e.g., Alpaca, Interactive Brokers).
+
+## 📌 Contact & Contribution
+Contributions are welcome! If you'd like to improve the system, feel free to open an **Issue** or submit a **Pull Request** on GitHub.
+
+📌 **GitHub Repository**: [https://github.com/your-username/multi-factor-stock-selection](https://github.com/your-username/multi-factor-stock-selection)
+
