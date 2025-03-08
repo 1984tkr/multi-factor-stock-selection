@@ -106,5 +106,5 @@ output/
 ## 📌 Contact & Contribution
 Contributions are welcome! If you'd like to improve the system, feel free to open an **Issue** or submit a **Pull Request** on GitHub.
 
-📌 **GitHub Repository**: [https://github.com/your-username/multi-factor-stock-selection](https://github.com/your-username/multi-factor-stock-selection)
+📌 **GitHub Repository**: [https://github.com/1984tkr/multi-factor-stock-selection]
 
