@@ -1,0 +1,3 @@
+touch factor_graveyard/retired_factors_log.txt
+2025-03-06 15:45:32 - bias_60 retired due to 3 consecutive months ICIR < 0.3
+2025-04-06 15:46:12 - volatility_30 retired due to 3 consecutive months ICIR < 0.3
